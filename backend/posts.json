@@ -1,4 +1,14 @@
 [
-  "Hi there!",
-  "My favorite snack is Tuna & Salmon flavored Churu, yum"
+  {
+    "text": "Chicken!",
+    "time": 1743620083025
+  },
+  {
+    "text": "Thinking about stealing some chicken skin from the sink...",
+    "time": 1743620314137
+  },
+  {
+    "text": "Mom busted me stealing chicken skin and now I'm banished from the kitchen :(",
+    "time": 1743620369874
+  }
 ]

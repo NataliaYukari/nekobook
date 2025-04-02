@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
 import "./FacebookProfile.css";
 import { useState } from 'react';
-
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
+ 
 export default function FacebookProfile() {
-  const [post, setPost] = useState()
+  const [post, setPost] = useState('')
   const [postList, setPostList] = useState([]);
+
+  const formatTimeAgo = (timestamp) => {
+    return formatDistanceToNow(new Date(timestamp), { addSuffix: true, locale: ptBR });
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -26,35 +32,38 @@ export default function FacebookProfile() {
 
   let sendPost = async () => {
     try {
+      const newPost = { text: post, time: Date.now() };
+
       const response = await fetch("http://localhost:5000/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ post })
+        body: JSON.stringify(newPost)
       });
 
       if (!response.ok) throw new Error("Erro ao enviar post");
 
-      setPostList([...postList, post]); // Atualiza a lista no React
-      setPost('');
-  } catch (error) {
-      console.error("Erro ao enviar post:", error);
-  }
+      const savedPost = await response.json();
 
+      setPostList([...postList, savedPost]); // Atualiza a lista no React
+      setPost('');
+    } catch (error) {
+        console.error("Erro ao enviar post:", error);
     }
+  }
 
   let loadPosts = () => {
     let tags = []
 
-    postList.forEach((value, index) => {
+    postList.forEach((post, index) => {
       tags.push(
-        <div className="post">
+        <div className="post" key={index}>
           <div className="post-header">           
             <div>
               <div className="user-name">Mochi</div>
-              <div className="post-time">1 day ago</div>
+              <div className="post-time">{post.time ? formatTimeAgo(post.time): "Now"}</div>
             </div>
           </div>
-          <p>{value}</p>
+          <p>{post.text}</p>
         </div>
       )          
     })

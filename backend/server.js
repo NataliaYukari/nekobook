@@ -33,16 +33,22 @@ app.get('/posts', (req, res) => {
 
 // Rota para adicionar um novo post
 app.post('/posts', (req, res) => {
-    const { post } = req.body;
-    if (!post) {
+    const { text } = req.body;
+
+    if (!text) {
         return res.status(400).json({ error: "Post não pode estar vazio!" });
     }
 
+    const newPost = {
+        text: text,
+        time: Date.now(),
+    };
+
     const posts = getPosts();
-    posts.push(post);
+    posts.push(newPost);
     savePosts(posts);
 
-    res.json({ message: "Post salvo com sucesso!", posts });
+    res.json(newPost);
 });
 
 app.listen( PORT, () => {
