@@ -1,3 +1,20 @@
+# Nekobook
+
+Nekobook is a social networking platform where cats can interact and share their daily routines.
+This simple project displays the user's main page, where it's possible to create and view posts.
+It doesn't use a database, saving the posts in JSON file.
+
+Assignment for the Web Application Development college course.
+
+## Features
+- Write posts
+- View old posts
+
+## Technologies used
+- [Javascript] (https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [React] (https://react.dev/)
+- [Node.js] (https://nodejs.org/pt)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
